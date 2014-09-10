@@ -42,4 +42,31 @@ package object test {
     graph.createEdge(5, 6)
     graph.createEdge(6, 7)
   }
+
+  def VERTEX_COUNT_SCC: Int = 8
+
+  def buildDirectedGraphSCC[T](graph: Graph[T]) {
+    println("Figure 22.7            ")
+    println("a --> b --> c <-> d      0 --> 1 --> 2 <-> 3   ")
+    println("^    /|     |     |      ^    /|     |     |   ")
+    println("|  /  |     |     |      |  /  |     |     |   ")
+    println("|%    v     v     v      |%    v     v     v   ")
+    println("e --> f <-> g --> h <-   4 --> 5 <-> 6 --> 7 <-")
+    println("                  | __|                    | __|")
+
+    graph.createEdge(0, 1)
+    graph.createEdge(1, 4)
+    graph.createEdge(1, 5)
+    graph.createEdge(1, 2)
+    graph.createEdge(2, 6)
+    graph.createEdge(2, 3)
+    graph.createEdge(3, 2)
+    graph.createEdge(3, 7)
+    graph.createEdge(4, 0)
+    graph.createEdge(4, 5)
+    graph.createEdge(5, 6)
+    graph.createEdge(6, 5)
+    graph.createEdge(6, 7)
+    graph.createEdge(7, 7)
+  }
 }
