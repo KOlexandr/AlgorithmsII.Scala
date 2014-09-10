@@ -2,7 +2,6 @@ package test
 
 import graph.{MatrixGraph, ListGraph}
 import stronglyConnectedComponents.{MatrixSCC, ListSCC}
-import topologicalSort.{MatrixTopologicalSort, ListTopologicalSort}
 
 object SCCTest extends App {
   println("Directed List Graph")

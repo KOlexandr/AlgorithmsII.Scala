@@ -1,7 +1,7 @@
 package stronglyConnectedComponents
 
 import graph.Graph
-import topologicalSort.{MatrixTopologicalSort, ListTopologicalSort}
+import topologicalSort.MatrixTopologicalSort
 
 /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
   * Chapter 22. Elementary Graph Algorithms
