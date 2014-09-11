@@ -9,7 +9,7 @@ import graph.Graph
 */
 class MatrixTopologicalSort(g: Graph[Array[Array[Int]]]) extends TopologicalSort[Array[Array[Int]]](g) {
 
-  override protected def dfsVisit(u: Int): Unit = {
+  override protected def dfsVisit(u: Int) {
     if(color(u) != BLACK) {
       color(u) = GRAY
       time += 1
