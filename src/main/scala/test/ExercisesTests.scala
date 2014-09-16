@@ -1,6 +1,8 @@
 package test
 
-import graph.ListGraph
+import graph.{MatrixGraph, ListGraph}
+import stronglyConnectedComponents.exercises.BuildStronglyComponentsGraph
+import stronglyConnectedComponents.{MatrixSCC, ListSCC}
 import topologicalSort.exercises.SearchCycles
 
 object ExercisesTests extends App {
@@ -33,7 +35,18 @@ object ExercisesTests extends App {
     println("There are: " + SearchCycles.countPaths(lGraph, 3, 9) + " paths\n")
   }
 
-//  ex22_4_3Test()
-  ex22_4_2Test()
+  def ex22_5_5Test(): Unit = {
+    println("Directed List Graph")
+    val lGraph = new ListGraph(VERTEX_COUNT_SCC, buildDirectedGraphSCC)
+    lGraph.buildGraph()
+    lGraph.printAdjacencyList()
 
+    val lSCC = new BuildStronglyComponentsGraph(lGraph)
+    lSCC.build()
+    lSCC.printGraph()
+  }
+
+//  ex22_4_3Test()
+//  ex22_4_2Test()
+  ex22_5_5Test()
 }
