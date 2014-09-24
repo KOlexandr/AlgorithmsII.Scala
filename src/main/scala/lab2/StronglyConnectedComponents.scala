@@ -24,7 +24,7 @@ object StronglyConnectedComponents {
     }
     def eachComponentVertexes(head: Node[Int], list: List[Int]): List[Int] = if(null == head) list else eachComponentVertexes(head.next, list ::: List(head.value))
 
-    println("Strongly Connected Components: ")
+    println("Connected Components: ")
     eachComponents(g.representVertex.represent)
   }
 
@@ -42,7 +42,7 @@ object StronglyConnectedComponents {
     }
     def eachComponentVertexes(head: INode[Int], list: List[Int]): List[Int] = if(null == head) list else eachComponentVertexes(head.next, list ::: List(head.value))
 
-    println("Strongly Connected Components: ")
+    println("Connected Components: ")
     eachComponents(g.representVertex.represent)
   }
 
@@ -60,7 +60,7 @@ object StronglyConnectedComponents {
     }
     def eachComponentVertexes(head: labProc.INode[Int], list: List[Int]): List[Int] = if(null == head) list else eachComponentVertexes(head.next, list ::: List(head.value))
 
-    println("Strongly Connected Components: ")
+    println("Connected Components: ")
     eachComponents(g.representVertex.represent)
   }
 
@@ -71,7 +71,7 @@ object StronglyConnectedComponents {
     var set: Set[Int] = Set()
     val represent: Array[Int] = g.representVertex.represent
     represent.foreach(i => set = set + i)
-    println("Strongly Connected Components: ")
+    println("Connected Components: ")
     set.foreach(i => {
       var list: List[Int] = List()
       0.until(represent.size).foreach(v => {

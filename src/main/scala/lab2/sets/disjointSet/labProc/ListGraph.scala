@@ -8,7 +8,7 @@ package lab2.sets.disjointSet.labProc
 class ListGraph(vCount: Int, build: (ListGraph) => Unit) {
 
     private var edges: List[(Int, Int)] = List()
-    private val vertexes: DSLinkedList = new DSLinkedList()
+    private val vertexes: DSLinkedList = new DSLinkedList(vCount)
 
     def printAdjacencyList(): Unit = {
       0.until(vertexCount).foreach(i => println(i + ": " + vertexes.findSet(i).toString))
