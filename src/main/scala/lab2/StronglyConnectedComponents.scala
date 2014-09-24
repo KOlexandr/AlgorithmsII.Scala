@@ -1,8 +1,7 @@
 package lab2
 
-import lab2.sets.disjointSet
 import lab2.sets.disjointSet.labFunc.{SNode, INode}
-import lab2.sets.disjointSet.labFunc
+import lab2.sets.disjointSet.{labProc, labFunc}
 import lab2.sets.disjointSet.exercise.{ListGraph, Node}
 import lab2.sets.disjointSet.optional.ArrayGraph
 
@@ -36,6 +35,21 @@ object StronglyConnectedComponents {
       }
     }
     def eachComponentVertexes(head: INode[Int], list: List[Int]): List[Int] = if(null == head) list else eachComponentVertexes(head.next, list ::: List(head.value))
+
+    println("Strongly Connected Components: ")
+    eachComponents(g.representVertex.represent)
+  }
+
+  def find(g: labProc.ListGraph): Unit = {
+    def eachComponents(head: List[labProc.SNode[Int]]): Unit = {
+      if(head.isEmpty) {
+        println()
+      } else {
+        println("[" + eachComponentVertexes(head.head.head, List()).map(String.valueOf).reduce(_ + ", " + _) + "]")
+        eachComponents(head.tail)
+      }
+    }
+    def eachComponentVertexes(head: labProc.INode[Int], list: List[Int]): List[Int] = if(null == head) list else eachComponentVertexes(head.next, list ::: List(head.value))
 
     println("Strongly Connected Components: ")
     eachComponents(g.representVertex.represent)
