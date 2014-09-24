@@ -10,6 +10,9 @@ import lab2.sets.disjointSet.optional.ArrayGraph
 */
 object StronglyConnectedComponents {
 
+  /**
+   * Exercise 21.2-5
+   */
   def find(g: ListGraph): Unit = {
     def eachComponents(head: List[Node[Int]]): Unit = {
       if(head.isEmpty) {
@@ -25,6 +28,9 @@ object StronglyConnectedComponents {
     eachComponents(g.representVertex.represent)
   }
 
+  /**
+   * ex1 lab in functional style
+   */
   def find(g: labFunc.ListGraph): Unit = {
     def eachComponents(head: List[SNode[Int]]): Unit = {
       if(head.isEmpty) {
@@ -40,6 +46,9 @@ object StronglyConnectedComponents {
     eachComponents(g.representVertex.represent)
   }
 
+  /**
+   * ex1 lab in procedure style
+   */
   def find(g: labProc.ListGraph): Unit = {
     def eachComponents(head: List[labProc.SNode[Int]]): Unit = {
       if(head.isEmpty) {
@@ -55,6 +64,9 @@ object StronglyConnectedComponents {
     eachComponents(g.representVertex.represent)
   }
 
+  /**
+   * 22.1 disjoint set based on array
+   */
   def find(g: ArrayGraph): Unit = {
     var set: Set[Int] = Set()
     val represent: Array[Int] = g.representVertex.represent
