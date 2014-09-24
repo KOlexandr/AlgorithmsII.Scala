@@ -1,4 +1,4 @@
-package lab2.sets.disjointSet.lab
+package lab2.sets.disjointSet.labFunc
 
 class INode[T](v: T, h: INode[T], n: INode[T]) {
   val value: T = v

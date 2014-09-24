@@ -1,8 +1,8 @@
 package lab2
 
 import lab2.sets.disjointSet
-import lab2.sets.disjointSet.lab.{SNode, INode}
-import lab2.sets.disjointSet.lab
+import lab2.sets.disjointSet.labFunc.{SNode, INode}
+import lab2.sets.disjointSet.labFunc
 import lab2.sets.disjointSet.exercise.{ListGraph, Node}
 import lab2.sets.disjointSet.optional.ArrayGraph
 
@@ -26,7 +26,7 @@ object StronglyConnectedComponents {
     eachComponents(g.representVertex.represent)
   }
 
-  def find(g: lab.ListGraph): Unit = {
+  def find(g: labFunc.ListGraph): Unit = {
     def eachComponents(head: List[SNode[Int]]): Unit = {
       if(head.isEmpty) {
         println()

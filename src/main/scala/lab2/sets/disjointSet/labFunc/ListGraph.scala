@@ -1,9 +1,10 @@
-package lab2.sets.disjointSet.lab
+package lab2.sets.disjointSet.labFunc
 
 /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
   * Chapter 21. Data Structures for Disjoint Sets
   * 21.2 Linked-list representation of disjoint sets
   * linked list representing
+  * i used functional programming principles: all values is immutable
   */
 class ListGraph(vCount: Int, build: (ListGraph) => Unit) {
 

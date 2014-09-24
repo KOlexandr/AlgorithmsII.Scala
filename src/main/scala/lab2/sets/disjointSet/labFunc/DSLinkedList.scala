@@ -1,4 +1,4 @@
-package lab2.sets.disjointSet.lab
+package lab2.sets.disjointSet.labFunc
 
 import lab2.sets.disjointSet.DisjointSet
 

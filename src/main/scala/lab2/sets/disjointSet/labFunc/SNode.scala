@@ -1,4 +1,4 @@
-package lab2.sets.disjointSet.lab
+package lab2.sets.disjointSet.labFunc
 
 class SNode[T](h: INode[T], t: INode[T]) {
   val head: INode[T] = h

@@ -2,7 +2,7 @@ package lab2
 
 import lab2.sets.disjointSet
 import lab2.sets.disjointSet.exercise.ListGraph
-import lab2.sets.disjointSet.lab
+import lab2.sets.disjointSet.labFunc
 import lab2.sets.disjointSet.optional.ArrayGraph
 
 package object test {
@@ -27,7 +27,7 @@ package object test {
     graph.createEdge(7, 8)
   }
 
-  def buildDirectedGraph(graph: lab.ListGraph) {
+  def buildDirectedGraph(graph: labFunc.ListGraph) {
     println("Figure 21.1")
     println("a --- b     e --- f     h     j     0 --- 1     4 --- 5     7     9")
     println("|    /|     |           |           |    /|     |           |      ")
