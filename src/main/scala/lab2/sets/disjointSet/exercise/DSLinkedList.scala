@@ -1,11 +1,14 @@
-package lab2.sets
+package lab2.sets.disjointSet.exercise
+
+import lab2.sets.disjointSet.DisjointSet
 
 /**
+* exercise 21.2-5
 * disjoint set union (DSU) or Union-Find using LinkedList
 */
-class DSULinkedList extends DSU[List[Node[Int]], Node[Int]] {
+class DSLinkedList extends DisjointSet[List[Node[Int]], Node[Int]] {
 
-  protected override var set: List[Node[Int]] = List[Node[Int]]()
+  override protected var set: List[Node[Int]] = List[Node[Int]]()
 
   override def makeSet(x: Int) = {
     set = set ::: List[Node[Int]](new Node[Int](x))

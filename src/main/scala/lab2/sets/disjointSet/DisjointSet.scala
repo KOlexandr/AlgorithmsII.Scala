@@ -1,6 +1,6 @@
-package lab2.sets
+package lab2.sets.disjointSet
 
-trait DSU[T, E] {
+trait DisjointSet[T, E] {
   protected var set: T
 
   def findSet(x: Int): E

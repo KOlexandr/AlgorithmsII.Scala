@@ -1,4 +1,4 @@
-package lab2.sets
+package lab2.sets.disjointSet.exercise
 
 class Node[T](v: T, n: Node[T]) {
 

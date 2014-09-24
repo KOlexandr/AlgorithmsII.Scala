@@ -1,6 +1,4 @@
-package lab2.graph
-
-import lab2.sets.DSUArray
+package lab2.sets.disjointSet.optional
 
 /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
   * Chapter 21. Data Structures for Disjoint Sets
@@ -10,7 +8,7 @@ import lab2.sets.DSUArray
 class ArrayGraph(vCount: Int, build: (ArrayGraph) => Unit) {
 
   private var edges: List[(Int, Int)] = List()
-  private val vertexes: DSUArray = new DSUArray(vCount)
+  private val vertexes: DSArray = new DSArray(vCount)
 
   def printAdjacencyList(): Unit = {
     0.until(vertexCount).foreach(i => println(i + ": " + vertexes.findSet(i).toString))
@@ -24,7 +22,7 @@ class ArrayGraph(vCount: Int, build: (ArrayGraph) => Unit) {
 
   def vertexCount: Int = vCount
 
-  def representVertex: DSUArray = vertexes
+  def representVertex: DSArray = vertexes
 
   def buildGraph(): Unit = build(this)
 

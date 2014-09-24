@@ -1,7 +1,10 @@
 package lab2
 
-import lab2.graph.{ArrayGraph, ListGraph}
-import lab2.sets.Node
+import lab2.sets.disjointSet
+import lab2.sets.disjointSet.lab.{SNode, INode}
+import lab2.sets.disjointSet.lab
+import lab2.sets.disjointSet.exercise.{ListGraph, Node}
+import lab2.sets.disjointSet.optional.ArrayGraph
 
 /**
 * StronglyConnectedComponents algorithm with using disjoint sets based on linked lists and arrays
@@ -18,6 +21,21 @@ object StronglyConnectedComponents {
       }
     }
     def eachComponentVertexes(head: Node[Int], list: List[Int]): List[Int] = if(null == head) list else eachComponentVertexes(head.next, list ::: List(head.value))
+
+    println("Strongly Connected Components: ")
+    eachComponents(g.representVertex.represent)
+  }
+
+  def find(g: lab.ListGraph): Unit = {
+    def eachComponents(head: List[SNode[Int]]): Unit = {
+      if(head.isEmpty) {
+        println()
+      } else {
+        println("[" + eachComponentVertexes(head.head.head, List()).map(String.valueOf).reduce(_ + ", " + _) + "]")
+        eachComponents(head.tail)
+      }
+    }
+    def eachComponentVertexes(head: INode[Int], list: List[Int]): List[Int] = if(null == head) list else eachComponentVertexes(head.next, list ::: List(head.value))
 
     println("Strongly Connected Components: ")
     eachComponents(g.representVertex.represent)

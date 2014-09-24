@@ -1,6 +1,4 @@
-package lab2.graph
-
-import lab2.sets.DSULinkedList
+package lab2.sets.disjointSet.lab
 
 /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
   * Chapter 21. Data Structures for Disjoint Sets
@@ -10,7 +8,7 @@ import lab2.sets.DSULinkedList
 class ListGraph(vCount: Int, build: (ListGraph) => Unit) {
 
    private var edges: List[(Int, Int)] = List()
-   private val vertexes: DSULinkedList = new DSULinkedList()
+   private val vertexes: DSLinkedList = new DSLinkedList()
 
    def printAdjacencyList(): Unit = {
      0.until(vertexCount).foreach(i => println(i + ": " + vertexes.findSet(i).toString))
@@ -24,7 +22,7 @@ class ListGraph(vCount: Int, build: (ListGraph) => Unit) {
 
    def vertexCount: Int = vCount
 
-   def representVertex: DSULinkedList = vertexes
+   def representVertex: DSLinkedList = vertexes
 
    def buildGraph(): Unit = {
      0.until(vCount).foreach(vertexes.makeSet)
@@ -33,5 +31,5 @@ class ListGraph(vCount: Int, build: (ListGraph) => Unit) {
 
    def representEdge: List[(Int, Int)] = edges
 
-   def sameComponent(x: Int, y: Int): Boolean = vertexes.findSet(x).value == vertexes.findSet(y).value
+   def sameComponent(x: Int, y: Int): Boolean = vertexes.findSet(x).head == vertexes.findSet(y).head
  }

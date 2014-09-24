@@ -1,10 +1,12 @@
-package lab2.sets
+package lab2.sets.disjointSet.optional
+
+import lab2.sets.disjointSet.DisjointSet
 
 /**
 * disjoint set union (DSU) or Union-Find using array
 * @param n - size of set
 */
-class DSUArray(n: Int) extends DSU[Array[Int], Int] {
+class DSArray(n: Int) extends DisjointSet[Array[Int], Int] {
 
   protected override var set: Array[Int] = Array.range(0, n)
 
