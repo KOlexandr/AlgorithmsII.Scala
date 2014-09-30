@@ -36,12 +36,20 @@ class ArraySet(vCount: Int) {
 /**
  * StronglyConnectedComponents algorithm with using Disjoint-Set Forest based on array
  */
-object SCC {
+object SCCArray {
 
   def find(g: ListGraph): Unit = {
     val set: ArraySet = new ArraySet(g.vertexCount)
     0.until(g.vertexCount).foreach(set.makeSet)
     val represent: List[List[Int]] = g.represent()
     0.until(g.vertexCount).foreach(i => if(represent(i).nonEmpty) represent(i).foreach(v => set.union(i, v)))
+
+    set.parent.distinct.foreach(i => {
+      var list: List[Int] = List()
+      0.until(g.vertexCount).foreach(v => {
+        if (i == set.parent(v)) list = list ::: List(v)
+      })
+      println(i + ": " + list.sortWith(_ < _).map(String.valueOf).reduce(_ + "," + _))
+    })
   }
 }

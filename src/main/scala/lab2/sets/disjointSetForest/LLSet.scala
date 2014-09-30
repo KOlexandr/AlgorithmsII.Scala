@@ -23,9 +23,9 @@ class LLSet(vCount: Int) {
         vertexes(y.vertex).parent = x
         data = data.filter(p => p.vertex != y.vertex)
       } else if (x.rank == y.rank) {
-        vertexes(y.vertex).parent = x
-        vertexes(x.vertex).rank = x.rank + 1
-        data = data.filter(p => p.vertex != y.vertex)
+        vertexes(x.vertex).parent = y
+        vertexes(y.vertex).rank = y.rank + 1
+        data = data.filter(p => p.vertex != x.vertex)
       } else {
         vertexes(x.vertex).parent = y
         data = data.filter(p => p.vertex != x.vertex)
@@ -44,7 +44,7 @@ class Node(var vertex: Int, var parent: Node, var rank: Int) {
 /**
  * StronglyConnectedComponents algorithm with using disjoint set forest based on linked list
  */
-object SCC {
+object SCCList {
 
   def find(g: ListGraph): Unit = {
     val set: LLSet = new LLSet(g.vertexCount)
@@ -57,7 +57,7 @@ object SCC {
       0.until(g.vertexCount).foreach(v => {
         if (i == set.vertexes(v).parent) list = list ::: List(v)
       })
-      println(i.vertex + ": " + list.map(String.valueOf).reduce(_ + "," + _))
+      println(i.vertex + ": " + list.sortWith(_ < _).map(String.valueOf).reduce(_ + "," + _))
     })
   }
 }

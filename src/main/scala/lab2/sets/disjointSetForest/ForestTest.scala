@@ -8,8 +8,8 @@ object ForestTest extends App {
   g.printAdjacencyList()
 
   println("Array Disjoint-Set Forest")
-  disjointSetForest.SCC.find(g)
+  disjointSetForest.SCCArray.find(g)
 
   println("List Disjoint-Set Forest")
-  disjointSetForest.SCC.find(g)
+  disjointSetForest.SCCList.find(g)
 }
