@@ -16,23 +16,29 @@ class Interval(val left: Double, val right: Double) {
 
   def / (that: Interval) =
     if(that.left == 0 || that.right == 0) throw new IllegalArgumentException("Divider can not by 0")
-    else this * new Interval(1/that.left, 1/that.right)
+    else this * new Interval(math.min(1/that.left, 1/that.right), math.max(1/that.left, 1/that.right))
 
   def < (that: Interval) = this.right < that.left
 
   def > (that: Interval) = that < this
 
+  def <= (that: Interval) = this < that || this == that
+
+  def >= (that: Interval) = that <= this
+
   def == (that: Interval) = this.left == that.left && this.right == that.right
+
+  def != (that: Interval) = !(this == that)
 
   def unary_- = new Interval(math.min(-this.left, -this.right), math.max(-this.left, -this.right))
 
-  def ^ (that: Interval) =
+  def intersection (that: Interval) =
     if(this < that || that < this) null
     else new Interval(math.max(this.left, that.left), math.min(this.right, that.right))
 
   def width = right - left
 
-  def middle = (left + right) / 2
+  def median = (left + right) / 2
 
   def abs = math.max(math.abs(left), math.abs(right))
 
@@ -40,7 +46,9 @@ class Interval(val left: Double, val right: Double) {
 
   def isSymmetric = -left == right
 
-  def mu = math.min(math.abs(left), math.abs(right))
+  def inf = left
 
-  def s = (math.abs(left) + math.abs(right)) / 2
+  def sup = right
+
+  override def toString: String = "[" + left + ", " + right + "]"
 }
