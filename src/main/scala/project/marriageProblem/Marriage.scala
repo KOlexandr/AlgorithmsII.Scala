@@ -9,6 +9,8 @@ package project.marriageProblem
  * A stable set of engagements for marriage is one where no man prefers a women over the one he is engaged to,
  * where that other woman also prefers that man over the one she is engaged to. I.e. with consulting marriages,
  * there would be no reason for the engagements between the people to change.
+ *
+ * @author Oleksandr KOL Kucher
  */
 object Marriage {
 
@@ -111,7 +113,7 @@ object Marriage {
       boy.fiance = girls.head
       boy.prefers = girls.tail
       freeBoys
-    } else if(girls.head.prefers.indexOf(girls.head.fiance) > girls.head.prefers.indexOf(boy)){
+    } else if(girls.head.isPrefers(boy)){
       val boyfriend: Boy = girls.head.fiance
       girls.head.fiance = boy
       boy.fiance = girls.head
