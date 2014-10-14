@@ -34,6 +34,12 @@ class LLSet(vCount: Int) {
   }
 
   def findSet(x: Int): Node = if(null == vertexes(x).parent) vertexes(x) else findSet(vertexes(x).parent.vertex)
+
+  def remove(x: Int) = {
+    vertexes(x).rank = 0
+    vertexes(x).parent = null
+    data = data ::: List(vertexes(x))
+  }
 }
 
 class Node(var vertex: Int, var parent: Node, var rank: Int) {
