@@ -5,7 +5,7 @@ class Interval(val left: Double, val right: Double) {
 
   def + (that: Interval) = new Interval(this.left + that.left, this.right + that.right)
 
-  def - (that: Interval) = new Interval(this.left - that.right, this.right + that.left)
+  def - (that: Interval) = new Interval(this.left - that.right, this.right - that.left)
 
   def * (that: Interval) = {
     val products: List[Double] =
