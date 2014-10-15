@@ -1,4 +1,4 @@
-package lab4
+package lab4.bellmanFord
 
 class Graph(val vertexCount: Int) {
 
@@ -60,5 +60,5 @@ class Graph(val vertexCount: Int) {
 }
 
 class Edge(val x: Int, val y: Int, val weight: Int){
-  override def toString: String = x + " -- " + weight + " -> " + y
+  override def toString: String = x + " -> " + weight + " -> " + y
 }
