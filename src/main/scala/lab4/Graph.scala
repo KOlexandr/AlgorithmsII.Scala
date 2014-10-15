@@ -1,4 +1,4 @@
-package lab4.bellmanFord
+package lab4
 
 class Graph(val vertexCount: Int) {
 

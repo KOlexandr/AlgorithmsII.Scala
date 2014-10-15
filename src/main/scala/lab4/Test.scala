@@ -1,6 +1,6 @@
 package lab4
 
-import lab4.bellmanFord.{ShortestPaths, Graph}
+import lab4.bellmanFord.ShortestPaths
 
 object Test {
 

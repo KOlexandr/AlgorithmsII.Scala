@@ -1,4 +1,4 @@
-package lab4.bellmanFord
+package lab4
 
 /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
  * Chapter 24. Single-Source Shortest Paths
