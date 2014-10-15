@@ -1,7 +1,5 @@
 package lab3
 
-import scala.collection.immutable.Queue
-
 /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
  * Chapter 23. Minimum Spanning Trees
  * 23.2 Algorithms of Kruskal and Prim
@@ -33,6 +31,11 @@ object MST {
     minimalTree
   }
 
+  /**
+   * Algorithm of Prim
+   * @param graph - graph
+   * @return - list of edges which had included in minimum spanning tree
+   */
   def prim(graph: Graph, r: Int): List[Edge] = {
     val pi: Array[Int] = Array.fill(graph.vertexCount)(NIL)
     val key: Array[Int] = Array.fill(graph.vertexCount)(INF)
