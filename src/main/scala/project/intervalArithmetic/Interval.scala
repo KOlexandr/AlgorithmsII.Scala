@@ -52,3 +52,7 @@ class Interval(val left: Double, val right: Double) {
 
   override def toString: String = "[" + left + ", " + right + "]"
 }
+
+object I{
+  def apply(left: Double, right: Double) = new Interval(left, right)
+}

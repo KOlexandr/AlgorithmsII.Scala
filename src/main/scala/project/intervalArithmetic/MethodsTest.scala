@@ -1,6 +1,6 @@
 package project.intervalArithmetic
 
-object GaussTest {
+object MethodsTest {
 
   /**
    * x - y = -5
@@ -12,7 +12,7 @@ object GaussTest {
     println("Simple")
     val a: Array[Array[Double]] = Array(Array(1.0,-1),Array(2.0,1))
     val b: Array[Double] = Array(-5.0,-7)
-    val gauss: Array[Double] = Gauss.gauss(a, b)
+    val gauss: Array[Double] = Methods.gauss(a, b)
     println("Simple system")
     println(gauss.map(String.valueOf).reduce(_ + "; " + _))
 
@@ -21,7 +21,7 @@ object GaussTest {
       Array(new Interval(2, 2), new Interval(1, 1))
     )
     val bInterval: Array[Interval] = Array(new Interval(-5, -5), new Interval(-7, -7))
-    val gaussInterval: Array[Interval] = Gauss.gauss(aInterval, bInterval)
+    val gaussInterval: Array[Interval] = Methods.gauss(aInterval, bInterval)
     println("Same system with Intervals")
     println(gaussInterval.map(String.valueOf).reduce(_ + "; " + _))
   }
@@ -37,7 +37,7 @@ object GaussTest {
     println("Example")
     val a: Array[Array[Double]] = Array(Array(3.0,2,-5),Array(2.0,-1,3),Array(1.0,2,-1))
     val b: Array[Double] = Array(-1.0,13,9)
-    val gauss: Array[Double] = Gauss.gauss(a, b)
+    val gauss: Array[Double] = Methods.gauss(a, b)
     println("Simple system")
     println(gauss.map(String.valueOf).reduce(_ + "; " + _))
 
@@ -47,7 +47,7 @@ object GaussTest {
       Array(new Interval(1, 1), new Interval(2, 2), new Interval(-1, -1))
     )
     val bInterval: Array[Interval] = Array(new Interval(-1, -1), new Interval(13, 13), new Interval(9, 9))
-    val gaussInterval: Array[Interval] = Gauss.gauss(aInterval, bInterval)
+    val gaussInterval: Array[Interval] = Methods.gauss(aInterval, bInterval)
     println("Same system with Intervals")
     println(gaussInterval.map(String.valueOf).reduce(_ + "; " + _))
   }
@@ -65,7 +65,7 @@ object GaussTest {
       Array(new Interval(0, 1), new Interval(7, 8))
     )
     val bInterval: Array[Interval] = Array(new Interval(2, 4), new Interval(-1, 1))
-    val gaussInterval: Array[Interval] = Gauss.gauss(aInterval, bInterval)
+    val gaussInterval: Array[Interval] = Methods.gauss(aInterval, bInterval)
     println("Same system with Intervals")
     println("Interval results: " + gaussInterval.map(String.valueOf).reduce(_ + "; " + _))
     println("Median of last step: " + gaussInterval.map(v => String.valueOf(v.median)).reduce(_ + "; " + _))
@@ -82,7 +82,7 @@ object GaussTest {
       Array(new Interval(-1, 2), new Interval(2, 4))
     )
     val bInterval: Array[Interval] = Array(new Interval(-2, 2), new Interval(-2, 2))
-    val gaussInterval: Array[Interval] = Gauss.gauss(aInterval, bInterval)
+    val gaussInterval: Array[Interval] = Methods.gauss(aInterval, bInterval)
     println("Same system with Intervals")
     println("Interval results: " + gaussInterval.map(String.valueOf).reduce(_ + "; " + _))
     println("Median of last step: " + gaussInterval.map(v => String.valueOf(v.median)).reduce(_ + "; " + _))
@@ -99,14 +99,19 @@ object GaussTest {
       Array(new Interval(-0, 2), new Interval(4, 4))
     )
     val bInterval: Array[Interval] = Array(new Interval(5, 7), new Interval(4, 4))
-    val gaussInterval: Array[Interval] = Gauss.gauss(aInterval, bInterval)
+    val gaussInterval: Array[Interval] = Methods.gauss(aInterval, bInterval)
     println("Same system with Intervals")
     println("Interval results: " + gaussInterval.map(String.valueOf).reduce(_ + "; " + _))
     println("Median of last step: " + gaussInterval.map(v => String.valueOf(v.median)).reduce(_ + "; " + _))
   }
 
+  def newtonTest() = {
+    println(Methods.newton(1, 5, 0.000000001, x => x*x-4*x, x => 2*x-4))
+    println(Methods.newtonInterval(I(1, 1.0001), I(5, 5), 0.000000001, x => x*x-I(4,4)*x, x => I(2,2)*x-I(4,4)))
+  }
+
   def main(args: Array[String]) {
-    simple()
+    /*simple()
     println()
     example()
     println()
@@ -115,6 +120,7 @@ object GaussTest {
     println()
     exampleInterval2()
     println()
-    exampleInterval3()
+    exampleInterval3()*/
+    newtonTest()
   }
 }
