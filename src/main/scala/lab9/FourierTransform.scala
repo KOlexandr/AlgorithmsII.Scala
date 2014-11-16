@@ -1,5 +1,9 @@
 package lab9
 
+/** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+  * Chapter 30.2-3 Polynomials and the FFT
+  * The DFT an FFT. Efficient FFT implementations
+  */
 object FourierTransform {
 
   /**============================================ Fast Fourier Transform ===========================================**/

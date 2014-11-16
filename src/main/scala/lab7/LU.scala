@@ -1,5 +1,9 @@
 package lab7
 
+/** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+ * Chapter 28.1-2 Matrix Operations
+ * Solving systems of linear equations, Inverting Matrices
+ */
 object LU {
 
   def lupSolve(l: Array[Array[Double]], u: Array[Array[Double]], pi: Array[Array[Int]], b: Array[Double]): Array[Double] = {

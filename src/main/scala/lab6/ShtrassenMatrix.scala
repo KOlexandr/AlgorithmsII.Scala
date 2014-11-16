@@ -1,5 +1,9 @@
 package lab6
 
+/** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+ * Chapter 28.1-2 Matrix Operations
+ * Matrix multiplication by Shtrassen
+ */
 abstract class ShtrassenMatrix {
 
   def + (that: ShtrassenMatrix): ShtrassenMatrix = this match {

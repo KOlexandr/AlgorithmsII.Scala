@@ -1,5 +1,9 @@
 package lab8
 
+/** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+  * Chapter 28.3 Matrix Operations
+  * Symmetric positive-deﬁnite matrices and least-squares approximation
+  */
 object MLS {
   /**
     *
