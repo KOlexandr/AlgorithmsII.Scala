@@ -1,7 +1,5 @@
 package lab9
 
-import scala.collection.immutable
-
 object FourierTransform {
 
   /**============================================ Fast Fourier Transform ===========================================**/
