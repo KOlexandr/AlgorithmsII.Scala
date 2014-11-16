@@ -17,7 +17,7 @@ object Test {
     val idftC: Array[Complex] = FourierTransform.idftC(Array[Double](1, 2, 3, 4, 5, 6, 7, 8))
     println("idftC: " + idftC.mkString(", "))
 
-//    val iterativeFFT: Array[Complex] = FourierTransform.iterativeFFT(Array[Double](1, 2, 3, 4, 5, 6, 7, 8))
-//    println("iterativeFFT: " + iterativeFFT.mkString(", "))
+    val iterativeFFT: Array[Complex] = FourierTransform.iterativeFFT(Array[Double](1, 2, 3, 4, 5, 6, 7, 8))
+    println("iterativeFFT: " + iterativeFFT.mkString(", "))
   }
 }

@@ -100,7 +100,7 @@ object FourierTransform {
 
   def iterativeFFT(x: Array[Double]): Array[Complex] = {
     val copy: Array[Complex] = bitReverseCopy(x).map(C(_, 0))
-    for(s <- 1 to math.log(x.length).toInt) {
+    for(s <- 1 to (math.log(x.length)/math.log(2)).round.toInt) {
       val m: Int = Math.pow(2, s).toInt
       val wm: Complex = (C(0, -1) * (-2 * Math.PI / m)).exp
       for(k <- 0 to x.length - 1 by m) {
@@ -114,7 +114,7 @@ object FourierTransform {
         }
       }
     }
-    copy
+    copy.map(_.conjugate)
   }
   /**========================================= Iterative Fast Fourier Transform =====================================**/
 }
