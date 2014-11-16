@@ -25,8 +25,10 @@ object LU {
     x
   }
 
-  def luDecomposition(a: Array[Array[Double]]): (Array[Array[Double]], Array[Array[Double]]) = {
-    val n: Int = a.size
+  def luDecomposition(in: Array[Array[Double]]): (Array[Array[Double]], Array[Array[Double]]) = {
+    val n: Int = in.size
+    val a: Array[Array[Double]] = copy(in)
+
     val l: Array[Array[Double]] = Array.fill(n, n)(0)
     val u: Array[Array[Double]] = Array.fill(n, n)(0)
     for(i <- 0 until n){
@@ -46,8 +48,10 @@ object LU {
     (l, u)
   }
 
-  def lupDecomposition(a: Array[Array[Double]]): (Array[Array[Double]], Array[Array[Double]], Array[Int]) = {
-    val n: Int = a.size
+  def lupDecomposition(in: Array[Array[Double]]): (Array[Array[Double]], Array[Array[Double]], Array[Int]) = {
+    val n: Int = in.size
+    val a: Array[Array[Double]] = copy(in)
+
     val pi: Array[Int] = Array.ofDim(n)
     val l: Array[Array[Double]] = Array.fill(n, n)(0)
     val u: Array[Array[Double]] = Array.fill(n, n)(0)
@@ -123,5 +127,29 @@ object LU {
   def solveWithLUP(a: Array[Array[Double]], b: Array[Double]): Array[Double] = {
     val (l, u, p) = lupDecomposition(a)
     lupSolve(l, u, p, b)
+  }
+
+  def inverseMatrix(in: Array[Array[Double]]): Array[Array[Double]] = {
+    val size: Int = in.size
+    if(in(0).size != size) throw new Error("Matrix should be square")
+    val a: Array[Array[Double]] = copy(in)
+    val inverse: Array[Array[Double]] = Array.ofDim(size, size)
+
+    for(i <- 0 until size){
+      val vec: Array[Double] = (for (j <- 0 until size) yield if(j == i) 1.0 else 0.0).toArray
+      val cols: Array[Double] = solveWithLUP(a, vec)
+      for (j <- 0 until size) {
+        inverse(j)(i) = cols(j)
+      }
+    }
+    inverse
+  }
+
+  private def copy(arr: Array[Array[Double]]): Array[Array[Double]] = {
+    val nArr: Array[Array[Double]] = Array.ofDim(arr.size, arr(0).size)
+    for(i <- 0 until arr.size; j <- 0 until arr(0).size){
+      nArr(i)(j) = arr(i)(j)
+    }
+    nArr
   }
 }
