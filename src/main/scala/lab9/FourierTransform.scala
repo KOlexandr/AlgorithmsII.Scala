@@ -84,8 +84,8 @@ object FourierTransform {
   /**====================================== Inverse Discrete Fourier Transform ======================================**/
 
   /**========================================= Iterative Fast Fourier Transform =====================================**/
-  private def bitReverseCopy[T](x: Array[T]): Array[T] = {
-    val res: Array[T] = Array.ofDim(x.length)
+  private def bitReverseCopy(x: Array[Complex]): Array[Complex] = {
+    val res: Array[Complex] = Array.ofDim(x.length)
     val size: Int = Integer.toBinaryString(x.length).size
     for {k <- 0 until x.length} res(reverseBits(k, size)) = x(k)
     res
