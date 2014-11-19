@@ -93,4 +93,5 @@ class Complex(val real: Double, val imaginary: Double) {
 
 object C {
   def apply(real: Double, imaginary: Double): Complex = new Complex(real, imaginary)
+  def apply(real: Double): Complex = new Complex(real, 0)
 }

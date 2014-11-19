@@ -3,7 +3,7 @@ package lab9
 object Test {
   def main(args: Array[String]) {
     val dftArray: Array[Double] = Array[Double](2, 3, 4, 5)
-    val idftArray: Array[Double] = Array[Double](1, 2, 3, 4, 5, 6, 7, 8)
+    val idftArray: Array[Complex] = Array[Complex](C(14), C(-2, 2), C(-2), C(-2, -2))
 
     val fft: Array[Complex] = FourierTransform.fft(dftArray)
     println("\nfft: " + fft.mkString("; "))
