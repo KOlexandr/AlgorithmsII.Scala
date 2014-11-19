@@ -7,6 +7,7 @@ class Complex(val real: Double, val imaginary: Double) {
   override def toString: String =
     if(math.abs(imaginary) < eps) "%.3f".format(real)
     else if(math.abs(real) < eps) "%.3f".format(imaginary)
+    else if(imaginary < 0) "%.3f".format(real) + " - " + "%.3f".format(math.abs(imaginary)) + "i"
     else "%.3f".format(real) + " + " + "%.3f".format(imaginary) + "i"
 
   /**
