@@ -1,7 +1,13 @@
 package lab10_11
 
+/** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+ * Chapter 32. String Matching
+ */
 object StringSMatcher {
 
+  /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+   * Chapter 32.1. The naive string-matching algorithm
+   */
   def naive(src: String, find: String): Int = {
     def search(src: String, find: String, idx: Int): Int = {
       if(src.isEmpty || src.length < find.length) -1
@@ -11,6 +17,9 @@ object StringSMatcher {
     if(find.length > src.length) -1 else search(src, find, 0)
   }
 
+  /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+   * Chapter 32.2. The Rabin-Karp algorithm
+   */
   def rabinKarp(src: String, find: String, d: Int, q: Int): Int = {
     val n: Int = src.length
     val m: Int = find.length
@@ -46,6 +55,9 @@ object StringSMatcher {
     if(src.length < find.length) false else inc(0)
   }
 
+  /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+   * Chapter 32.4. The Knuth-Morris-Pratt algorithm
+   */
   def kmp(src: String, find: String): Int = {
     def search(i: Int, q: Int, pi: Array[Int]): Int = {
       if(q == find.length - 1) i - q - 1
@@ -62,9 +74,16 @@ object StringSMatcher {
     def compute(q: Int, k: Int, pi: Array[Int]): Array[Int] = {
       if(q >= m) pi
       else if(k >= 0 && str.charAt(k + 1) != str.charAt(q)) compute(q, pi(k), pi)
-      else if(str.charAt(k + 1) == str.charAt(q)) compute(q + 1, k + 1, pi.updated(q, k))
+      else if(str.charAt(k + 1) == str.charAt(q)) compute(q + 1, k + 1, pi.updated(q, k + 1))
       else compute(q + 1, k, pi.updated(q, k))
     }
     compute(1, -1, Array.ofDim(m).updated(0, -1))
+  }
+
+  /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+   * Chapter 32.3. String matching with ﬁnite automata
+   */
+  def finiteAutomaton(src: String, find: String): Int = {
+    -1
   }
 }

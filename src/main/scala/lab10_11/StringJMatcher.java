@@ -1,7 +1,13 @@
 package lab10_11;
 
+/** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+ * Chapter 32. String Matching
+ */
 public class StringJMatcher {
 
+    /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+     * Chapter 32.1. The naive string-matching algorithm
+     */
     public static int naive(final String src, final String find){
         if(find.length() > src.length()) {
             return -1;
@@ -16,6 +22,9 @@ public class StringJMatcher {
         return -1;
     }
 
+    /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+     * Chapter 32.2. The Rabin-Karp algorithm
+     */
     public static int rabinKarp(final String src, final String find, final int d, final int q){
         if(find.length() > src.length()) {
             return -1;
@@ -59,6 +68,9 @@ public class StringJMatcher {
         return true;
     }
 
+    /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+     * Chapter 32.4. The Knuth-Morris-Pratt algorithm
+     */
     public static int kmp(final String src, final String find){
         if(find.length() > src.length()) {
             return -1;
@@ -96,5 +108,12 @@ public class StringJMatcher {
             pi[q] = k;
         }
         return pi;
+    }
+
+    /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+     * Chapter 32.3. String matching with ﬁnite automata
+     */
+    public static int finiteAutomaton(final String src, final String find){
+        return -1;
     }
 }
