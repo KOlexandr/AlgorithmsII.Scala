@@ -1,5 +1,8 @@
 package lab10_11;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 /** Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
  * Chapter 32. String Matching
  */
@@ -114,6 +117,62 @@ public class StringJMatcher {
      * Chapter 32.3. String matching with ﬁnite automata
      */
     public static int finiteAutomaton(final String src, final String find){
+        final char[] chars = src.concat(find).toCharArray();
+        final Set<Character> characters = new HashSet<>();
+        for (char ch : chars) {
+            characters.add(ch);
+        }
+        final List<Character> list = characters.stream().sorted().collect(Collectors.toList());
+        final Map<Character, Integer> alphabet = new HashMap<>();
+        for (int i = 0; i < characters.size(); i++) {
+            alphabet.put(list.get(i), i);
+        }
+        final int[][] function = computeTransactionFunction(find, list);
+        return finiteAutomateMatcher(src, function, find.length(), alphabet);
+    }
+
+    private static int finiteAutomateMatcher(final String src, final int[][] sigma, final int m, final Map<Character, Integer> alpha){
+        final int n = src.length();
+        int q = 0;
+        for (int i = 0; i < n; i++) {
+            q = sigma[q][alpha.get(src.charAt(i))];
+            if(q == m){
+                return i - m + 1;
+            }
+        }
         return -1;
+    }
+
+    private static int[][] computeTransactionFunction(final String str, final List<Character> alphabet) {
+        final int m = str.length();
+        final int[][] sigma = new int[m + 1][alphabet.size()];
+        for (int q = 0; q <= m; q++) {
+            for (int i = 0; i < alphabet.size(); i++) {
+                final String pqa = substring(str, 0, q) + alphabet.get(i);
+                int k = Math.min(m + 1, q + 2) - 1;
+                while(!isSuffix(str, k, pqa)){
+                    k--;
+                }
+                sigma[q][i] = k;
+            }
+        }
+        return sigma;
+    }
+
+    private static boolean isSuffix(final String str, final int k, final String pqa){
+        final int m = pqa.length();
+        int j = 0;
+        while(j < k && str.charAt(j) == pqa.charAt(m - k + j)) {
+            j++;
+        }
+        return j == k;
+    }
+
+    private static String substring(final String str, final int start, final int end){
+        final StringBuilder sb = new StringBuilder();
+        for (int i = start; i < end; i++) {
+            sb.append(str.charAt(i));
+        }
+        return sb.toString();
     }
 }

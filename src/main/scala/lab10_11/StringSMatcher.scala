@@ -84,6 +84,34 @@ object StringSMatcher {
    * Chapter 32.3. String matching with ﬁnite automata
    */
   def finiteAutomaton(src: String, find: String): Int = {
-    -1
+    val alphabet: Map[Char, Int] = (src concat find).toSet.toList.sorted.zipWithIndex.toMap
+    finiteAutomateMatcher(src, computeTransactionFunction(find, alphabet.keys.toList.sorted), find.length, alphabet)
   }
+
+  private def finiteAutomateMatcher(src: String, sigma: Array[Array[Int]], m: Int, alpha: Map[Char, Int]): Int = {
+    def inner(i: Int, q: Int, n: Int): Int = {
+      if(q == m) i - m
+      else if(i == n) -1
+      else inner(i + 1, sigma(q)(alpha(src(i))), n)
+    }
+    inner(0, 0, src.length)
+  }
+
+  private def computeTransactionFunction(str: String, alphabet: List[Char]): Array[Array[Int]] = {
+    def count(str: String, pqa: String, k: Int): Int = if(isSuffix(str, k, pqa)) k else count(str, pqa, k - 1)
+    val m: Int = str.length
+    val sigma: Array[Array[Int]] = Array.fill(m + 1, alphabet.size)(0)
+    for(q <- 0 to m; i <- 0 until alphabet.size) {
+      sigma(q)(i) = count(str, substring(str, 0, q) + alphabet(i), math.min(m + 1, q + 2) - 1)
+    }
+    sigma
+  }
+
+  private def isSuffix(str: String, k: Int, pqa: String): Boolean = {
+    def inner(j: Int, m: Int): Boolean = if(j < k && str(j) == pqa(m - k + j)) inner(j + 1, m) else j == k
+    inner(0, pqa.length)
+  }
+
+  private def substring(str: String, start: Int, end: Int): String =
+    if(start == end) "" else str(start) + substring(str, start + 1, end)
 }
