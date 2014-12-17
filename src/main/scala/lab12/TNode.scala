@@ -1,11 +1,20 @@
 package lab12
 
 class Tree(val root: TNode) {
+
+  def this() {
+    this(null)
+  }
+
   def search(key: Int): TNode = search(root, key)
 
   def insert(z: TNode): Tree = new Tree(insert(root, z))
 
+  def insert(key: Int): Tree = new Tree(insert(root, new TNode(null, null, null, key)))
+
   def delete(z: TNode): Tree = new Tree(delete(root, z))
+
+  def delete(key: Int): Tree = new Tree(delete(root, search(key)))
 
   private def insert(root: TNode, z: TNode): TNode = {
     var y: TNode = null

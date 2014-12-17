@@ -1,5 +1,12 @@
 package lab12
 
+/**
+* Cormen, Leiserson, Rivest, Stein. Introduction to Algorithms, 2nd Ed.
+* Chapter 33. Computational Geometry
+*   33.1 Line-segment properties
+*     Determining whether two line segments intersect
+*   33.2 Determining whether any pair of segments intersects
+*/
 object SegmentIntersect {
 
   /** determines whether two line segments intersect **/
@@ -24,12 +31,14 @@ object SegmentIntersect {
     }
   }
 
-  // computes relative orientations using the cross-product method
-  //               |x1   x2|
-  //  p1 x p2 = det|       | = x1y2 - x2y1
-  //               |y1   y2|
-  //
-  //  return (pk - pj) x (pj - pi)
+  /**
+   * computes relative orientations using the cross-product method
+   *              |x1   x2|
+   * p1 x p2 = det|       | = x1y2 - x2y1
+   *              |y1   y2|
+   *
+   * return (pk - pj) x (pj - pi)
+   */
   def direction(pi: Point, pj: Point, pk: Point): Int =
     (pk.x - pj.x) * (pi.y - pj.y) - (pi.x - pj.x) * (pk.y - pj.y)
 
@@ -38,38 +47,44 @@ object SegmentIntersect {
   def onSegment(pi: Point, pj: Point, pk: Point): Boolean =
     math.min(pi.x, pj.x) <= pk.x && pk.x <= math.max(pi.x, pj.x) && math.min(pi.y, pj.y) <= pk.y && pk.y <= math.max(pi.y, pj.y)
 
+  /** returns true if any pair of segments in set lines intersects, and false otherwise **/
   def anySegmentsIntersect(lines: Array[Line]): Boolean = {
-    val sortedLines: Array[Line] = lines.sortBy(_.p1.x)
-    val indexedByLine: Map[Line, Int] = lines.zipWithIndex.map(e => e._1 -> e._2).toMap
-    val indexedById: Map[Int, Line] = indexedByLine.map(e => e._2 -> e._1).toMap
+    val sLines: Array[Line] = lines.sortBy(_.p1.x)  //lines sorted by left points
+    val lineIdx: Map[Line, Int] = lines.zipWithIndex.map(e => e._1 -> e._2).toMap //indexes of lines
+    val left: Map[Point, Line] = lines.map(l => l.p1 -> l).toMap  //left border of each line
+    val right: Map[Point, Line] = lines.map(l => l.p2 -> l).toMap //right border of each line
 
-    val points: Array[Point] = sortedLines.map(l => Array(l.p1, l.p2)).flatten
-    val sortedPoints = points.sortBy(_.x)
-    val leftBordered = lines.map(l => l.p1 -> l).toMap
-    val rightBordered = lines.map(l => l.p2 -> l).toMap
+    val points: Array[Point] = sLines.map(l => Array(l.p1, l.p2)).flatten //all points (left and right borders of each line)
 
-    var tree: Tree = new Tree(null)
-
-    for(p <- sortedPoints){
-      if(leftBordered.contains(p)) {
-        tree = tree.insert(new TNode(null, null, null, indexedByLine(leftBordered(p))))
-        val predecessor: TNode = T.predecessor(tree.search(indexedByLine(leftBordered(p))))
-        val successor: TNode = T.successor(tree.search(indexedByLine(leftBordered(p))))
-        if ((null != predecessor && isIntersect(indexedById(predecessor.key), leftBordered(p))) ||
-          null != successor && isIntersect(indexedById(successor.key), leftBordered(p))) {
-          return true
+    def innerIntersect(tree: Tree, points: Array[Point]): Boolean = {
+      if(points.isEmpty) {
+        false
+      } else {
+        val head: Point = points.head
+        if (left.contains(head)) {
+          val newTree = tree.insert(lineIdx(left(head)))
+          val predecessor: TNode = T.predecessor(newTree.search(lineIdx(left(head))))
+          if (null != predecessor && isIntersect(sLines(predecessor.key), left(head))) {
+            true
+          } else {
+            val successor: TNode = T.successor(newTree.search(lineIdx(left(head))))
+            if (null != successor && isIntersect(sLines(successor.key), left(head))) {
+              true
+            } else {
+              innerIntersect(newTree, points.tail)
+            }
+          }
+        } else {
+          val predecessor: TNode = T.predecessor(tree.search(lineIdx(right(head))))
+          val successor: TNode = T.successor(tree.search(lineIdx(right(head))))
+          if (null != predecessor && null != successor && isIntersect(sLines(successor.key), sLines(predecessor.key))) {
+            true
+          } else {
+            innerIntersect(tree.delete(lineIdx(right(head))), points.tail)
+          }
         }
-      }
-      if(rightBordered.contains(p)) {
-        tree = tree.insert(new TNode(null, null, null, indexedByLine(rightBordered(p))))
-        val predecessor: TNode = T.predecessor(tree.search(indexedByLine(rightBordered(p))))
-        val successor: TNode = T.successor(tree.search(indexedByLine(rightBordered(p))))
-        if (null != predecessor && null != successor && isIntersect(indexedById(successor.key), indexedById(predecessor.key))) {
-          return true
-        }
-        tree = tree.delete(tree.search(indexedByLine(rightBordered(p))))
       }
     }
-    false
+    innerIntersect(new Tree(), points.sortBy(_.x))
   }
 }

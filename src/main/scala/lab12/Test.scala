@@ -20,12 +20,12 @@ object Test {
 
   def anySegmentsIntersect(): Unit = {
     val lines = Array(
-      L(5, 25, 25, 31),
-      L(10, 3, 80, 30),
-      L(15, 12, 35, 18),
-      L(20, 25, 77, 15),
-      L(30, 27, 75, 21),
-      L(40, 12, 65, 3)
+      L(5, 25, 25, 31),   //a
+      L(10, 3, 80, 30),   //b
+      L(15, 12, 35, 18),  //c
+      L(20, 25, 77, 15),  //d
+      L(30, 27, 75, 21),  //e
+      L(40, 12, 65, 3)    //f
     )
     if (SegmentIntersect.anySegmentsIntersect(lines)) {
       println("Yes")
