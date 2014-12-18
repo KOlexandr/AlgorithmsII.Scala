@@ -1,6 +1,9 @@
-package lab12
+package lab12_13
 
-class Point(val x: Int, val y: Int)
+class Point(val x: Int, val y: Int) {
+  override def toString: String = s"($x, $y)"
+}
+
 class Line(val p1: Point, val p2: Point)
 
 object P {
