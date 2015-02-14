@@ -1,23 +1,15 @@
 package semester2nd.lab1
 
 object RLE {
-  def main(args: Array[String]) {
-    println(" = " + encode(""))
-    println("baa = " + encode("baa"))
-    println("baba = " + encode("baba"))
-    println("aaaaaaab = " + encode("aaaaaaab"))
-    println("aaaaaaabb = " + encode("aaaaaaabb"))
-    println("caaaaaaabb = " + encode("caaaaaaabb"))
-    println("caaaqaaaabb = " + encode("caaaqaaaabb"))
-  }
-
+  val SPECIAL_CHARACTER: String = "@"
+  val COUNT_ENCODED_CHARS: Int = 3
 
   def encode(str: String): String = {
     def same(src: List[Char], char: Char, count: Int, tmp: String): (List[Char], String) = {
-      if(src.isEmpty && count > 3) (src, "@" + count + char)
+      if(src.isEmpty && count > 3) (src, SPECIAL_CHARACTER + count + char)
       else if(src.isEmpty) (src, tmp)
       else if(src.head == char) same(src.tail, char, count + 1, tmp + src.head)
-      else if(count > 3) (src, "@" + count + char)
+      else if(count > 3) (src, SPECIAL_CHARACTER + count + char)
       else (src, tmp)
     }
 
@@ -30,6 +22,21 @@ object RLE {
       }
       else inner(src.tail, newStr + src.head)
     }
-    inner(str.toList, "").toString
+    inner(str.toList, "")
+  }
+
+  def decode(str: String): String = {
+    def same(num: Int, char: String, str: String): String = {
+      if(num == 0) str
+      else same(num-1, char, str + char)
+    }
+
+    def inner(src: List[String], newStr: String): String = {
+      if(src.isEmpty) newStr
+      else if(src.head == SPECIAL_CHARACTER)
+        inner(src.slice(COUNT_ENCODED_CHARS, src.size), newStr + same(Integer.parseInt(src(1).toString), src(2), ""))
+      else inner(src.tail, newStr + src.head)
+    }
+    inner(str.split("").toList, "")
   }
 }
