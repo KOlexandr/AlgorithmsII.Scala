@@ -1,4 +1,4 @@
-package semester2nd.lab1
+package semester2nd.lab2
 
 object ShannonFano {
 
