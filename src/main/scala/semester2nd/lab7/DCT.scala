@@ -3,51 +3,63 @@ package semester2nd.lab7
 import java.awt.image.BufferedImage
 
 object DCT {
+  private val blockSize: Int = 8
+  private val denominator: Double = 2.0 * blockSize
 
-  def dct(x: Array[Array[Int]]): Array[Array[Int]] = {
-    val size = x.length
+  def dct(x: Array[Array[Double]]): Array[Array[Double]] = {
+    val (height, width) = (x.length, x(0).length)
+    val (blocksHeight, blocksWidth) = (height / blockSize, width / blockSize)
 
-    val result: Array[Array[Int]] = Array.ofDim(size, size)
-    val blockSize: Int = 8
-    val blocks: Int = size / blockSize
-    for(b1: Int <- 0 until blocks; b2: Int <- 0 until blocks) {
+    val result: Array[Array[Double]] = Array.ofDim(height, width)
+    for(b1: Int <- 0 until blocksHeight; b2: Int <- 0 until blocksWidth) {
       for (p: Int <- 0 until blockSize; q: Int <- 0 until blockSize) {
         var sum = 0.0
         for (m: Int <- 0 until blockSize; n: Int <- 0 until blockSize) {
           sum += x(b1 * blockSize + m)(b2 * blockSize + n) *
-            Math.cos((Math.PI * (2 * m + 1) * p) / (2.0 * blockSize)) *
-            Math.cos((Math.PI * (2 * n + 1) * q) / (2.0 * blockSize))
+            Math.cos((Math.PI * (2 * m + 1) * p) / denominator) *
+            Math.cos((Math.PI * (2 * n + 1) * q) / denominator)
         }
-        result(blockSize * b1 + p)(blockSize * b2 + q) = (2.0 / blockSize * f(q) * f(p) * sum).toInt
+        result(blockSize * b1 + p)(blockSize * b2 + q) = 2.0 / blockSize * c(q) * c(p) * sum
       }
     }
     result
   }
 
-  def dct(image: BufferedImage): BufferedImage = RGBImage(dct(RGBImage.fromBufferedImage(image).content)).toBufferedImage
+  def dct(image: BufferedImage): BufferedImage = {
+    val rgbImage: RGBImage = RGBImage.fromBufferedImage(image)
+    val result: Array[Array[Double]] = dct(RGBImage.toDouble(rgbImage.content))
+    RGBImage(RGBImage.toInt(result), rgbImage.width, rgbImage.height).toBufferedImage
+  }
 
-  def idct(in: Array[Array[Int]]): Array[Array[Int]] = {
-    val size = in.length
+  def idct(in: Array[Array[Double]]): Array[Array[Double]] = {
+    val (height, width) = (in.length, in(0).length)
+    val (blocksHeight, blocksWidth) = (height / blockSize, width / blockSize)
 
-    val blockSize: Int = 8
-    val blocks: Int = size / blockSize
-    val result: Array[Array[Int]] = Array.ofDim(size, size)
-
-    for(x: Int <- 0 until blocks; y: Int <- 0 until blocks) {
+    val result: Array[Array[Double]] = Array.ofDim(height, width)
+    for(b1: Int <- 0 until blocksHeight; b2: Int <- 0 until blocksWidth) {
+      val (p, q) = (b1 * blockSize, b2 * blockSize)
+      for (x <- p until p + blockSize; y <- q until q + blockSize) {
         var sum = 0.0
-        for (p: Int <- 0 until blockSize; q: Int <- 0 until blockSize) {
-          sum += f(p) * f(q) * in(x * blockSize + p)(y * blockSize + q) *
-            Math.cos((Math.PI * (2 * x + 1) * p) / (2.0 * blockSize)) *
-            Math.cos((Math.PI * (2 * y + 1) * q) / (2.0 * blockSize))
-        result(blockSize * x + x)(blockSize * y + y) = sum.toInt
+        for (i: Int <- 0 until blockSize; j: Int <- 0 until blockSize) {
+          sum += c(i) * c(j) * in(p + i)(q + j) *
+            Math.cos((Math.PI * (2 * x + 1) * i) / denominator) *
+            Math.cos((Math.PI * (2 * y + 1) * j) / denominator)
+        }
+        result(idx(b1, x))(idx(b2, y)) = 1.0 / math.sqrt(2.0 * blockSize) * sum
       }
     }
     result
   }
 
-  def idct(image: BufferedImage): BufferedImage = RGBImage(idct(RGBImage.fromBufferedImage(image).content)).toBufferedImage
+  def idct(image: BufferedImage): BufferedImage = {
+    val rgbImage: RGBImage = RGBImage.fromBufferedImage(image)
+    val result: Array[Array[Double]] = idct(RGBImage.toDouble(rgbImage.content))
+    RGBImage(RGBImage.toInt(result), rgbImage.width, rgbImage.height).toBufferedImage
+  }
 
-  private def f(i: Int): Double = if(i == 0) 1.0/math.sqrt(2) else 1
+  private def c(i: Int): Double = if(i == 0) 1.0/math.sqrt(2) else 1.0
+
+  private def idx(b: Int, i: Int): Int = if(b % 2 == 0) i else b * blockSize + ((b + 1) * blockSize) - i - 1
 }
 
 class RGBImage(val content: Array[Array[Int]], val width: Int, val height: Int) {
@@ -63,7 +75,7 @@ class RGBImage(val content: Array[Array[Int]], val width: Int, val height: Int) 
 }
 
 object RGBImage {
-  def apply(content: Array[Array[Int]]): RGBImage = new RGBImage(content, content.length, content(0).length)
+  def apply(content: Array[Array[Int]], width: Int, height: Int): RGBImage = new RGBImage(content, width, height)
   /**
    * reads the pixels from a BufferedImage
    * @param image the BufferedImage to be getting the pixels from
@@ -77,4 +89,8 @@ object RGBImage {
     }
     new RGBImage(rgb, width, height)
   }
+
+  def toInt(array: Array[Array[Double]]): Array[Array[Int]] = array.map(v => v.map(math.round(_).toInt))
+
+  def toDouble(array: Array[Array[Int]]): Array[Array[Double]] = array.map(v => v.map(_.toDouble))
 }
