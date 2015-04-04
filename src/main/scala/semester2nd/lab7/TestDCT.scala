@@ -10,13 +10,23 @@ object TestDCT {
   }
 
   def testDCT(path: String, name: String): Unit = {
-    val dct: BufferedImage = DCT.dctOptimized(readImage(path + name))
-    saveImage(path + name + "_DCT_.jpg", "jpg", dct)
+    val dct = DCT.dct(Array(
+      Array(63, 63, 63, 63, 63, 63, 63, 63),
+      Array(63, 63, 63, 63, 63, 63, 63, 63),
+      Array(63, 63, 255, 255, 255, 255, 63, 63),
+      Array(63, 63, 255, 255, 255, 255, 63, 63),
+      Array(63, 63, 255, 255, 255, 255, 63, 63),
+      Array(63, 63, 255, 255, 255, 255, 63, 63),
+      Array(63, 63, 63, 63, 63, 63, 63, 63),
+      Array(63, 63, 63, 63, 63, 63, 63, 63)
+    ))
+    println(dct.map(q => q.mkString(" ")).mkString("\n") + "\n")
 
-    val idct: BufferedImage = DCT.idctOptimized(dct)
-    saveImage(path + name + "_IDCT_.jpg", "jpg", idct)
+    val idct = DCT.idct(dct)
+    println(idct.map(q => q.mkString(" ")).mkString("\n"))
   }
 
   def readImage(path: String): BufferedImage = ImageIO.read(Files.newInputStream(Paths.get(path)))
-  def saveImage(path: String, format: String, image: BufferedImage): Unit = ImageIO.write(image, format, Files.newOutputStream(Paths.get(path)))
+  def saveImage(path: String, format: String, image: BufferedImage): Unit =
+    ImageIO.write(image, format, Files.newOutputStream(Paths.get(path)))
 }
