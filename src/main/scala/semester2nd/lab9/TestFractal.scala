@@ -6,14 +6,14 @@ import javax.imageio.ImageIO
 
 object TestFractal {
   def main(args: Array[String]) {
-    test("src/main/resources/", "lena.png")
+    test("src/main/resources/", "lena.jpg")
 //    test()
   }
 
   def test(path: String, name: String): Unit = {
     val image: BufferedImage = readImage(path + name)
     val compress: (Array[BestRatio], Int, Int) = FractalTransform.compress(image)
-    val decompress: BufferedImage = FractalTransform.decompress(compress._1, compress._2, compress._3, 1000)
+    val decompress: BufferedImage = FractalTransform.decompress(compress._1, compress._2, compress._3, 100)
     saveImage(path + name + "_FRACTAL_.jpg", "jpg", decompress)
   }
 

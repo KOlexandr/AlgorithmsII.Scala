@@ -27,7 +27,7 @@ object FractalTransform {
     for(block <- rangeBlocks(oldImage)) {
       val bestRatio: BestRatio = find(br, block)
       val nBlock: Block = new Block(defineBlock(oldImage, bestRatio.di, bestRatio.dj, domainBlockSize), block.i, block.j)
-      fromBlock(newImage, resize(bestRatio.rotation.rotate(nBlock)) * 0.75 + bestRatio.brightness, rangeBlockSize)
+      fromBlock(newImage, resize(bestRatio.rotation.rotate(nBlock)) * bestRatio.contrast + bestRatio.brightness, rangeBlockSize)
     }
     newImage
   }
